@@ -1,0 +1,52 @@
+{
+  "domain": "software-engineering",
+  "label": "Software engineering",
+  "description": "Reference profile. Decisions made while building, changing, or operating software.",
+  "categories": [
+    "architecture",
+    "implementation",
+    "dependency",
+    "tradeoff",
+    "constraint",
+    "workaround",
+    "rejection",
+    "defer",
+    "product",
+    "other"
+  ],
+  "extractionGuidance": "Record a decision when a technical choice was made whose rationale would not be recoverable from the code alone: picking one approach over a named alternative, rejecting a dependency or service, accepting a constraint, deliberately deferring work, or choosing a workaround with a known cost.\n\nDo NOT record: which variable name was used, routine refactors, running tests, reading files, fixing an obvious typo, or a suggestion the user did not act on. If the choice has no alternative and no cost, it is not a decision.\n\nPrefer the user's stated reasoning over your own reconstruction. If no reasoning was given anywhere in the session, the confidence should be low and the decision is usually not worth recording.",
+  "distillationGuidance": "Look for repeated judgment across different decisions: a dependency policy applied more than once, a consistent preference for the existing stack, a recurring review step, a repeated deferral rule, a shell command or checklist typed out several times.\n\nA principle here usually reads as a rule about when to reach for something. A procedure reads as an ordered way of evaluating a class of change. An operation reads as a concrete repeatable artifact: a script, a command, a template, a checklist.\n\nDo not propose a pattern from a single decision unless that decision explicitly states a general rule.",
+  "examples": [
+    {
+      "category": "dependency",
+      "subject": "Session storage backend",
+      "decision": "Use D1 rather than introducing PostgreSQL",
+      "reasoning": "The workload is small and D1 is already part of the Cloudflare stack; adding Postgres would add an operational surface with no current benefit."
+    },
+    {
+      "category": "rejection",
+      "subject": "Caching layer",
+      "decision": "Rejected adding Redis",
+      "reasoning": "Existing in-process cache already meets the latency target; a new managed service is not justified."
+    },
+    {
+      "category": "defer",
+      "subject": "Query optimization",
+      "decision": "Defer index tuning until the table exceeds 100k rows",
+      "reasoning": "Current query times are well within budget and the access pattern is still changing."
+    },
+    {
+      "category": "tradeoff",
+      "subject": "Authentication for the CI job",
+      "decision": "Reuse the existing PAT instead of introducing OAuth",
+      "reasoning": "OAuth would require a callback host that this job does not have; the PAT is scoped and rotated already."
+    }
+  ],
+  "outputTargets": [
+    { "id": "claude-md", "label": "CLAUDE.md rule", "description": "A rule appended to the repository or user CLAUDE.md" },
+    { "id": "agents-md", "label": "AGENTS.md rule", "description": "A rule for agent-agnostic repository instructions" },
+    { "id": "skill", "label": "Agent skill", "description": "A SKILL.md capturing a repeatable procedure" },
+    { "id": "checklist", "label": "Review checklist", "description": "A checklist used before merging or shipping" },
+    { "id": "script", "label": "Shell script or command", "description": "A reusable command-line operation" }
+  ]
+}

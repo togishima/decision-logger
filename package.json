@@ -1,0 +1,42 @@
+{
+  "name": "decision-logger",
+  "version": "0.1.0",
+  "description": "Local-first tool that automatically collects meaningful decisions made during AI-assisted work and distills them into reusable principles, procedures, and operations.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "bin": {
+    "decision-logger": "./bin/decision-logger.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "prompts",
+    "profiles",
+    "integrations",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --no-warnings=ExperimentalWarning --test test/*.test.ts",
+    "start": "node --no-warnings=ExperimentalWarning src/cli/main.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "@types/node": "^22.10.0"
+  },
+  "keywords": [
+    "decisions",
+    "local-first",
+    "sqlite",
+    "claude-code",
+    "cursor",
+    "codex",
+    "agent"
+  ]
+}

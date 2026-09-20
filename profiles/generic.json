@@ -1,0 +1,22 @@
+{
+  "domain": "generic",
+  "label": "Generic knowledge work",
+  "description": "Domain-neutral fallback used when no profession-specific profile applies.",
+  "categories": [
+    "choice",
+    "tradeoff",
+    "constraint",
+    "rejection",
+    "defer",
+    "scope",
+    "principle",
+    "other"
+  ],
+  "extractionGuidance": "Record a judgment when the reasoning behind it may matter again later: an option chosen over a named alternative, something explicitly rejected, a constraint accepted, a scope boundary drawn, or work deliberately postponed.\n\nDo not record routine execution, wording preferences, or suggestions nobody acted on.",
+  "distillationGuidance": "Look for judgments that recur across unrelated situations. State the pattern in the user's own terms, without borrowing vocabulary from any particular profession.",
+  "outputTargets": [
+    { "id": "note", "label": "Plain note", "description": "A short written rule or checklist" },
+    { "id": "checklist", "label": "Checklist", "description": "A repeatable list of steps or checks" },
+    { "id": "prompt", "label": "Reusable prompt", "description": "A prompt template for future AI-assisted work" }
+  ]
+}

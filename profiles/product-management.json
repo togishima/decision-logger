@@ -1,0 +1,37 @@
+{
+  "domain": "product-management",
+  "label": "Product management",
+  "description": "Minimal example profile. Included to prove that a new domain needs no schema change and no core code change — only this file.",
+  "categories": [
+    "prioritization",
+    "scope",
+    "discovery",
+    "metric",
+    "positioning",
+    "tradeoff",
+    "rejection",
+    "defer",
+    "other"
+  ],
+  "extractionGuidance": "Record a judgment when a product choice was made whose rationale would otherwise be lost: prioritizing one signal over another, rejecting a request, drawing a scope boundary, committing to a metric threshold, or choosing a research method.\n\nDo not record status updates, meeting logistics, or restatements of a roadmap.",
+  "distillationGuidance": "Look for a repeated basis for prioritization, a recurring reason for saying no, a consistent research method choice, or a threshold applied more than once.",
+  "examples": [
+    {
+      "category": "prioritization",
+      "subject": "Q3 roadmap ordering",
+      "decision": "Rank by retention impact rather than by request count",
+      "reasoning": "Request volume is dominated by a few loud accounts and has not predicted churn."
+    },
+    {
+      "category": "rejection",
+      "subject": "Bulk export feature",
+      "decision": "Rejected building it for now",
+      "reasoning": "Only one customer has asked and the requirement is specific to their internal tooling."
+    }
+  ],
+  "outputTargets": [
+    { "id": "prioritization-rule", "label": "Prioritization rule" },
+    { "id": "discovery-checklist", "label": "Discovery checklist" },
+    { "id": "prompt", "label": "Reusable prompt" }
+  ]
+}
