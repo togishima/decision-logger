@@ -39,6 +39,13 @@ under each one says what breaks if it is crossed.
 | Domain interpretation | `src/core/domains/`, `profiles/` | one profession's vocabulary |
 | Artifact rendering | `src/renderers/` | one profession's output formats |
 
+The repository root doubles as a Claude Code plugin: `.claude-plugin/` holds
+the plugin and marketplace manifests, `commands/` the slash commands, and
+`hooks/hooks.json` the hook wiring. Those files only ever invoke
+`bin/decision-logger.js` — a slash command is never a second implementation,
+which is why `/decision-logger:configure` is a wrapper around
+`decision-logger config`.
+
 **Adapters contain no analysis.** They obtain data, normalize it, and hand it
 over. If a change to the Cursor adapter would need a matching change in the
 Codex adapter, the logic belongs in the core.
@@ -268,7 +275,7 @@ decision would violate the only rule the product has.
 
 ## Testing
 
-65 tests, no model and no network. The whole core runs against an in-memory
+75 tests, no model and no network. The whole core runs against an in-memory
 database and a scripted analyzer — the payoff of keeping the only
 non-deterministic component behind a single port.
 
@@ -280,4 +287,5 @@ trigger and suppression rule; repeated principle and procedure; no-pattern as a
 valid outcome; accepted proposal does not reappear; rejected proposal
 deprioritised; strong new evidence revives; provenance intact; renderer output
 does not leak into the core model; transcript shapes from all three agents;
-malformed and failing analyzer responses.
+malformed and failing analyzer responses; configuration keys derived from the
+schema, typo and type rejection, and environment precedence.

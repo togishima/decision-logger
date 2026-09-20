@@ -15,6 +15,14 @@ import {
   cmdRender,
 } from "./commands/review.ts";
 import { cmdDoctor } from "./commands/doctor.ts";
+import {
+  cmdConfigList,
+  cmdConfigGet,
+  cmdConfigSet,
+  cmdConfigUnset,
+  cmdConfigPath,
+} from "./commands/config.ts";
+import type { ConfigScope } from "./commands/config.ts";
 import { cmdInit, cliEntryPath } from "./commands/init.ts";
 import type { InitTarget } from "./commands/init.ts";
 
@@ -59,6 +67,12 @@ Review
                              Render an accepted proposal to stdout
 
 Setup
+  config list                Every setting, and which are changed from default
+  config get <key>
+  config set <key> <value>   e.g. config set notifications.unreviewedThreshold 10
+  config unset <key>
+  config path                Where the config file lives
+    --project                  Apply to this workspace instead of your user profile
   init [--target claude-code|cursor|codex] [--apply] [--project]
   doctor                     Check that automatic capture will actually work
 
@@ -263,6 +277,33 @@ export async function main(argv: string[]): Promise<number> {
           apply: flags.apply,
           project: flags.project,
         });
+
+      case "config": {
+        const scope: ConfigScope = flags.project ? "project" : "user";
+        const action = positionals[1] ?? "list";
+        switch (action) {
+          case "list":
+            return cmdConfigList(ctx, { scope });
+          case "get":
+            return requireArg(positionals[2], "config get <key>") ?? cmdConfigGet(ctx, positionals[2]!);
+          case "set":
+            return (
+              requireArg(positionals[2], "config set <key> <value>") ??
+              requireArg(positionals[3], "config set <key> <value>") ??
+              cmdConfigSet(ctx, positionals[2]!, positionals.slice(3).join(" "), { scope })
+            );
+          case "unset":
+            return (
+              requireArg(positionals[2], "config unset <key>") ??
+              cmdConfigUnset(ctx, positionals[2]!, { scope })
+            );
+          case "path":
+            return cmdConfigPath(ctx, { scope });
+          default:
+            process.stderr.write(`Unknown config action "${action}". Try list, get, set, unset, path.\n`);
+            return 2;
+        }
+      }
 
       case "doctor":
         return await cmdDoctor(ctx);

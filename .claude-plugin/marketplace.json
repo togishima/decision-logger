@@ -1,0 +1,20 @@
+{
+  "name": "decision-logger",
+  "owner": {
+    "name": "togishima",
+    "url": "https://github.com/togishima"
+  },
+  "description": "decision-logger: remembers the meaningful decisions you make while working with AI, and distils them into reusable principles, procedures, and operations.",
+  "plugins": [
+    {
+      "name": "decision-logger",
+      "source": "./",
+      "description": "Automatically records meaningful decisions from your sessions, then proposes reusable principles, procedures, and operations when you run /distill.",
+      "homepage": "https://github.com/togishima/decision-logger",
+      "repository": "https://github.com/togishima/decision-logger",
+      "license": "MIT",
+      "category": "productivity",
+      "keywords": ["decisions", "memory", "local-first", "sqlite", "retrospective"]
+    }
+  ]
+}

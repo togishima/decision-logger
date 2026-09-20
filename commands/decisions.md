@@ -9,9 +9,9 @@ disable-model-invocation: true
 
 Argument: `$ARGUMENTS`
 
-!`node "${CLAUDE_PLUGIN_ROOT}/../../bin/decision-logger.js" status`
+!`node "${CLAUDE_PLUGIN_ROOT}/bin/decision-logger.js" status`
 
-!`node "${CLAUDE_PLUGIN_ROOT}/../../bin/decision-logger.js" list $ARGUMENTS || true`
+!`node "${CLAUDE_PLUGIN_ROOT}/bin/decision-logger.js" list $ARGUMENTS || true`
 
 ## What to do
 

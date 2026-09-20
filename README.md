@@ -82,12 +82,46 @@ strong new evidence can revive a rejected theme.
 
 ## Install
 
-Requires **Node 22.18+** (for `node:sqlite` and native TypeScript).
+Requires **Node 22.18+** (for `node:sqlite` and native TypeScript). There are
+no runtime dependencies, so nothing is installed alongside it.
+
+### Claude Code (recommended)
+
+It is a plugin. Hooks, slash commands and configuration come with it:
+
+```shell
+/plugin marketplace add togishima/decision-logger
+/plugin install decision-logger@decision-logger
+```
+
+Then `/reload-plugins` if it asks, and:
+
+```shell
+/decision-logger:doctor      # is automatic capture actually going to work?
+/decision-logger:configure   # see and change settings
+```
+
+That is the whole setup. Capture starts on your next turn.
+
+The plugin provides:
+
+| Command | What it does |
+|---|---|
+| `/decision-logger:decisions` | What has been recorded — for trust and debugging |
+| `/decision-logger:distill` | Review accumulated decisions, propose patterns |
+| `/decision-logger:configure` | Show and adjust every setting |
+
+And three hooks: a non-blocking reminder on `SessionStart`, and incremental
+ingestion on `Stop` and `SessionEnd`, both detached so a turn never waits.
+
+### Standalone CLI
+
+For use outside an agent, or with Cursor and Codex:
 
 ```bash
-git clone https://github.com/you/decision-logger
+git clone https://github.com/togishima/decision-logger
 cd decision-logger
-npm install        # only typescript + @types/node, both dev-only
+npm install        # typescript + @types/node, both dev-only
 npm link           # or: npm install -g .
 decision-logger doctor
 ```
@@ -96,17 +130,11 @@ decision-logger doctor
 an analyzer is available, whether `node` is resolvable from a hook shell, and
 which agents it can read.
 
-### Claude Code
+To wire up Claude Code hooks without the plugin:
 
 ```bash
 decision-logger init --target claude-code          # prints what it would add
 decision-logger init --target claude-code --apply  # writes it, keeps a .bak
-```
-
-For the `/decisions` and `/distill` slash commands:
-
-```bash
-claude --plugin-dir /path/to/decision-logger/integrations
 ```
 
 ### Cursor
@@ -147,6 +175,11 @@ decision-logger defer  <id> [--days 30]
 decision-logger render <id> [--target claude-md|skill|checklist|...]
 decision-logger doctor
 decision-logger ingest [--catch-up | --file <path>]
+
+decision-logger config list         Every setting, and which are non-default
+decision-logger config get <key>
+decision-logger config set <key> <value> [--project]
+decision-logger config unset <key>
 ```
 
 Every command takes `--json`. Slash commands are thin wrappers around this CLI,
@@ -156,7 +189,33 @@ never a second implementation.
 
 ## Configuration
 
-Nothing is required. To change something, write
+Nothing is required. In Claude Code, run `/decision-logger:configure`. From a
+terminal:
+
+```bash
+decision-logger config list
+decision-logger config set notifications.unreviewedThreshold 10
+decision-logger config set analyzer heuristic --project
+decision-logger config unset notifications.unreviewedThreshold
+```
+
+Only real settings can be set — a typo is rejected rather than silently
+ignored, and a value of the wrong type is refused before it is written.
+
+The settings that matter day to day:
+
+| Setting | Default | What it changes |
+|---|---|---|
+| `notifications.unreviewedThreshold` | `20` | How many decisions before you are reminded |
+| `notifications.enabled` | `true` | Reminders on or off |
+| `domain` | `software-engineering` | Which profession's vocabulary is used |
+| `analyzer` | `auto` | `claude-cli`, `codex-cli`, `anthropic-api`, `heuristic` (offline), `none` |
+| `ingestion.minConfidence` | `0.6` | Higher means fewer, surer decisions |
+| `distillation.minDecisions` | `5` | How much evidence before `/distill` will run |
+| `privacy.sendReasoningToAnalyzer` | `true` | Whether thinking blocks are forwarded |
+
+Changes take effect on the next session; nothing needs restarting. Everything
+is written to plain JSON you can also edit by hand —
 `~/.config/decision-logger/config.json`:
 
 ```json
@@ -222,13 +281,17 @@ what is sent, and what is stored.
 ## Development
 
 ```bash
-npm test        # 65 tests, no model and no network
+npm test        # 75 tests, no model and no network
 npm run typecheck
 ```
 
 The whole core is tested against an in-memory database and a scripted
 analyzer, because the model is the only non-deterministic part of the system
 and it sits behind a single port.
+
+```bash
+claude plugin validate .     # check the plugin and marketplace manifests
+```
 
 ## License
 

@@ -113,7 +113,7 @@ function initClaudeCode(ctx: CliContext, args: InitArgs, command: string): numbe
     notes: [
       "Claude Code merges hooks from every settings scope, so this does not replace your existing hooks.",
       "Cursor also imports Claude Code hooks from .claude/settings.json, so this covers Cursor too.",
-      "Slash commands: copy integrations/claude-code into a plugin dir, or run `claude --plugin-dir <repo>/integrations`.",
+      "For slash commands and a guided setup, install the plugin instead: /plugin marketplace add togishima/decision-logger",
     ],
   });
 }

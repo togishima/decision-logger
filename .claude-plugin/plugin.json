@@ -1,0 +1,12 @@
+{
+  "name": "decision-logger",
+  "description": "Automatically records the meaningful decisions you make while working, and distils them into reusable principles, procedures, and operations.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "togishima",
+    "url": "https://github.com/togishima"
+  },
+  "homepage": "https://github.com/togishima/decision-logger",
+  "repository": "https://github.com/togishima/decision-logger"
+}

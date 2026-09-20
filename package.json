@@ -13,9 +13,12 @@
   "files": [
     "bin",
     "dist",
+    "src",
     "prompts",
     "profiles",
-    "integrations",
+    "commands",
+    "hooks",
+    ".claude-plugin",
     "docs",
     "README.md",
     "LICENSE"

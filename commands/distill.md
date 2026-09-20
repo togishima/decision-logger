@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 # Distill
 
-!`node "${CLAUDE_PLUGIN_ROOT}/../../bin/decision-logger.js" distill $ARGUMENTS`
+!`node "${CLAUDE_PLUGIN_ROOT}/bin/decision-logger.js" distill $ARGUMENTS`
 
 ## What to do
 

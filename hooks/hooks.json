@@ -4,7 +4,7 @@
       "hooks": [
         {
           "type": "command",
-          "command": "node \"${CLAUDE_PLUGIN_ROOT}/../../bin/decision-logger.js\" remind --format hook",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/bin/decision-logger.js\" remind --format hook",
           "timeout": 10
         }
       ]
@@ -15,7 +15,7 @@
       "hooks": [
         {
           "type": "command",
-          "command": "node \"${CLAUDE_PLUGIN_ROOT}/../../bin/decision-logger.js\" ingest --hook --detach",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/bin/decision-logger.js\" ingest --hook --detach",
           "timeout": 10
         }
       ]
@@ -26,7 +26,7 @@
       "hooks": [
         {
           "type": "command",
-          "command": "node \"${CLAUDE_PLUGIN_ROOT}/../../bin/decision-logger.js\" ingest --hook --detach",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/bin/decision-logger.js\" ingest --hook --detach",
           "timeout": 10
         }
       ]
