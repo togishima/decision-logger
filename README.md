@@ -290,7 +290,17 @@ analyzer, because the model is the only non-deterministic part of the system
 and it sits behind a single port.
 
 ```bash
-claude plugin validate .     # check the plugin and marketplace manifests
+claude plugin validate .     # validates the marketplace manifest
+```
+
+Note: when both manifests are present, `plugin validate` checks the
+**marketplace** one and stops. To validate the plugin itself — including
+`hooks/hooks.json`, whose events must sit under a `hooks` key — validate a copy
+with `marketplace.json` removed:
+
+```bash
+cp -R . /tmp/p && rm /tmp/p/.claude-plugin/marketplace.json
+claude plugin validate /tmp/p
 ```
 
 ## License
