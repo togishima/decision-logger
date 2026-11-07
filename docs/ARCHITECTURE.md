@@ -259,7 +259,9 @@ cannot trust the review step — and the review step is the whole product.
 The analyzer shells out to `claude -p`, which fires the same hooks that
 triggered ingestion. Two guards:
 
-- `--bare` skips hooks, skills, MCP and CLAUDE.md in the subprocess;
+- `--setting-sources ""`, `--strict-mcp-config`, `--disable-slash-commands`
+  and `--tools ""` skip hooks, plugins, skills, MCP and CLAUDE.md in the
+  subprocess (not `--bare`, which also ignores the OAuth login);
 - `DECISION_LOGGER_INGEST=1` makes both `ingest` and `remind` no-ops.
 
 `--no-session-persistence` also keeps the analysis out of

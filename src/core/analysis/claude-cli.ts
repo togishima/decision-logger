@@ -8,9 +8,13 @@ import { runProcess, which } from "./run-process.ts";
  * Chosen as the default because it needs no API key beyond the login the user
  * already has. The flags matter:
  *
- * - `--bare` skips hooks, skills, MCP servers and CLAUDE.md. Without it the
- *   SessionStart/SessionEnd hooks that trigger ingestion would fire again
- *   inside this subprocess.
+ * - `--setting-sources ""`, `--strict-mcp-config`, `--disable-slash-commands`
+ *   and `--tools ""` skip hooks, plugins, skills, MCP servers and CLAUDE.md.
+ *   Without them the SessionStart/SessionEnd hooks that trigger ingestion would
+ *   fire again inside this subprocess. `--bare` would do the same in one flag,
+ *   but it also skips the OAuth/keychain login and accepts only
+ *   ANTHROPIC_API_KEY, so on a subscription login every call fails with
+ *   "Not logged in".
  * - `--no-session-persistence` keeps the analysis out of `~/.claude/projects`,
  *   so observing the user's work does not itself create transcripts.
  * - `--json-schema` gives schema-validated structured output instead of prose
@@ -52,7 +56,12 @@ export class ClaudeCliAnalyzer implements Analyzer {
       prompt,
       "--output-format",
       "json",
-      "--bare",
+      "--setting-sources",
+      "",
+      "--strict-mcp-config",
+      "--disable-slash-commands",
+      "--tools",
+      "",
       "--no-session-persistence",
       "--permission-prompts",
       "none",
