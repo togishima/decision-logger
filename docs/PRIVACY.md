@@ -54,8 +54,9 @@ characters, keeping the tail, where conclusions live).
 
 The Claude CLI analyzer runs with `--no-session-persistence` and
 `CLAUDE_CODE_SKIP_PROMPT_HISTORY=1`, so analysing your work does not itself
-write another transcript to `~/.claude/projects`. It also runs with `--bare`,
-which skips hooks, skills, MCP servers and CLAUDE.md in the subprocess.
+write another transcript to `~/.claude/projects`. It also runs without
+settings sources, MCP servers, slash commands or tools, so hooks, plugins,
+skills, MCP servers and CLAUDE.md are skipped in the subprocess.
 
 ## Redaction
 
